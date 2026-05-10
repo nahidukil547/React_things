@@ -1,6 +1,6 @@
 import About from './components/Home/About'
 import Navbar from './components/Home/Navbar'
-import {  Routes, Route } from 'react-router-dom'
+import {  Routes, Route, Link } from 'react-router-dom'
 import HomePage from './Pages/HomePage'
 import './App.css'
 
@@ -15,6 +15,7 @@ function App() {
       <div className="container">
         <div id='navbar'>
           <Navbar />  
+          <Link to="/">Home</Link>
         </div>
         <Routes>
           <Route path="/" element={<HomePage />} />
