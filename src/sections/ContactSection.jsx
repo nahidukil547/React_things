@@ -6,10 +6,10 @@ import { useTheme } from '../context/ThemeContext';
 gsap.registerPlugin(ScrollTrigger);
 
 const socialLinks = [
-  { icon: '🐙', label: 'GitHub', handle: '@alexmorgan', href: '#' },
-  { icon: '💼', label: 'LinkedIn', handle: 'Nahid Hasan Ukil', href: '#' },
-  { icon: '🐦', label: 'Twitter', handle: '@alexmorgan_dev', href: '#' },
-  { icon: '📧', label: 'Email', handle: 'alex@morgan.dev', href: 'mailto:alex@morgan.dev' },
+  { icon: '🐙', label: 'GitHub', handle: '@nahidukil547', href: 'https://github.com/nahidukil547' },
+  { icon: '💼', label: 'LinkedIn', handle: 'Nahid Hasan Ukil', href: 'https://www.linkedin.com/in/nahid-hasan-ukil-a3bb43297/' },
+  { icon: '📧', label: 'Email', handle: 'nahidukil547@gmail.com', href: 'mailto:nahidukil547@gmail.com' },
+  { icon: '🌐', label: 'Portfolio', handle: 'nahidhasanukil.vercel.app', href: 'https://nahidhasanukil.vercel.app' },
 ];
 
 export default function ContactSection() {
@@ -362,11 +362,11 @@ export default function ContactSection() {
         <span
           className="text-xs"
           style={{
-            color: isDark ? 'rgba(255,247,241,0.3)' : 'rgba(11,11,11,0.3)',
+            color: isDark ? 'rgba(255,247,241,0.3)' : 'rgb(6 5 5 / 90%)',
             fontFamily: 'Space Grotesk, sans-serif',
           }}
         >
-          © 2025 Nahid Hasan Ukil. Crafted with passion.
+          © 2026 Nahid Hasan Ukil. Crafted with passion.
         </span>
         <span
           className="text-xs"

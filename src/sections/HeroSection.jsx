@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { useTheme } from '../context/ThemeContext';
 import GlowRing from '../components/GlowRing';
 import { getTimePeriod } from '../utils/timeUtils';
+import MainPhoto from '../assets/Image/MainPhoto.png';
 
 // ─── Typewriter phases ──────────────────────────────────────────────────────
 const PHASES = [
@@ -16,7 +17,7 @@ const INITIAL_DELAY = 900;
 // Pause (ms) between erasing one phase and typing the next
 const BETWEEN_PAUSE = 320;
 
-export default function HeroSection() {
+export default function HeroSection({ loaderDone }) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -117,8 +118,9 @@ export default function HeroSection() {
       .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
   }, []);
 
-  // ── State-machine typewriter (chained setTimeout, no setInterval) ───────
+  // ── State-machine typewriter (starts only after loader is gone) ──────────
   useEffect(() => {
+    if (!loaderDone) return;
     let timer = null;
 
     // type → hold → erase → next phase, recursively
@@ -162,30 +164,31 @@ export default function HeroSection() {
 
     timer = setTimeout(() => runPhase(0, 0, false), INITIAL_DELAY);
     return () => clearTimeout(timer);
-  }, [triggerSectionReveal]);
+  }, [triggerSectionReveal, loaderDone]);
 
+  // ── Set all elements invisible immediately on mount ────────────────────
   useEffect(() => {
-    // Set initial invisible states
-    gsap.set(headingRef.current,  { opacity: 0, y: 36 });
-    gsap.set(imageWrapRef.current, { opacity: 0, x: 55, scale: 0.92 });
+    gsap.set(headingRef.current,   { opacity: 0, y: 36 });
+    gsap.set(imageWrapRef.current, { opacity: 0, x: 30, scale: 0.92 });
     gsap.set(bottomBarRef.current, { opacity: 0, y: 24 });
     gsap.set(
       [subtitleRef.current, descRef.current, ctaRef.current,
        ...(badgesRef.current ? [...badgesRef.current.children] : [])],
       { opacity: 0, y: 22 }
     );
+  }, []);
 
-    const tl = gsap.timeline({ delay: 0.35 });
-    // Heading wrapper slides in
+  // ── Entrance animations — fire only after loader finishes ───────────────
+  useEffect(() => {
+    if (!loaderDone) return;
+    const tl = gsap.timeline({ delay: 0.2 });
     tl.to(headingRef.current, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' });
-    // Image slides in from right simultaneously; clear transform so float-y CSS animation takes over
     tl.to(imageWrapRef.current, {
       opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'power3.out',
       onComplete: () => gsap.set(imageWrapRef.current, { clearProps: 'transform' }),
     }, 0.25);
-
     return () => tl.kill();
-  }, []);
+  }, [loaderDone]);
 
   // ── Image hover handlers ────────────────────────────────────────────────
   const handleImageEnter = useCallback(() => {
@@ -214,7 +217,7 @@ export default function HeroSection() {
       ? (isDark ? '0 0 40px rgba(232,109,4,0.4)' : '0 0 20px rgba(232,109,4,0.2)')
       : 'none';
 
-  const techBadges = ['React', 'Node.js', 'TypeScript', 'Python', 'AWS'];
+  const techBadges = ['Python', 'Django', 'React.js', 'PostgreSQL', 'AWS S3'];
 
   return (
     <section
@@ -304,7 +307,7 @@ export default function HeroSection() {
                 letterSpacing: '0.02em',
                 margin: 0,
               }}>
-                Full-Stack Software Engineer
+                Full-Stack Python Developer
               </h2>
             </div>
 
@@ -317,9 +320,9 @@ export default function HeroSection() {
               marginBottom: '2rem',
               maxWidth: '30rem',
             }}>
-              Crafting high-performance digital experiences with clean architecture
-              and cinematic interfaces. Passionate about solving complex problems
-              at the intersection of design and engineering.
+              Full-Stack Python Developer with 1.5+ years building AI-powered
+              platforms, SaaS products, and scalable REST APIs — specialized in
+              Django · DRF · React.js · PostgreSQL · AWS S3.
             </p>
 
             {/* Tech Badges */}
@@ -383,8 +386,8 @@ export default function HeroSection() {
             }}>
               {[
                 { value: getTimePeriod(), label: 'Experience' },
-                { value: '50+', label: 'Projects'   },
-                { value: '30+', label: 'Clients'    },
+                { value: '10+', label: 'Projects'   },
+                { value: '2+',  label: 'Companies'  },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div style={{
@@ -411,7 +414,7 @@ export default function HeroSection() {
             <div
               ref={imageWrapRef}
               className="relative flex items-center justify-center float-y"
-              style={{ width: 380, height: 380 }}
+              style={{ width: 'min(380px, calc(100vw - 48px))', height: 'min(380px, calc(100vw - 48px))' }}
               onMouseEnter={handleImageEnter}
               onMouseLeave={handleImageLeave}
             >
@@ -420,7 +423,7 @@ export default function HeroSection() {
               <div
                 className="relative z-10 rounded-full overflow-hidden profile-img"
                 style={{
-                  width: 280, height: 280,
+                  width: '74%', height: '74%',
                   border: '2px solid rgba(232,109,4,0.5)',
                   boxShadow: (imageHovered || glowPulse)
                     ? '0 0 55px rgba(232,109,4,0.65), 0 0 110px rgba(232,109,4,0.3), inset 0 0 30px rgba(232,109,4,0.12)'
@@ -428,50 +431,16 @@ export default function HeroSection() {
                   transition: 'box-shadow 0.5s ease',
                 }}
               >
-                <div className="w-full h-full flex items-center justify-center" style={{
-                  background: isDark
-                    ? 'linear-gradient(135deg, #0d0d2b 0%, #1a0a00 50%, #0d0d2b 100%)'
-                    : 'linear-gradient(135deg, #f0e8e0 0%, #ffe8d0 50%, #f0e8e0 100%)',
-                }}>
-                  <svg viewBox="0 0 200 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stopColor={isDark ? '#1e1e3f' : '#f5ede5'} />
-                        <stop offset="100%" stopColor={isDark ? '#0a0a1f' : '#e8ddd5'} />
-                      </radialGradient>
-                      <radialGradient id="skinGrad" cx="45%" cy="40%" r="60%">
-                        <stop offset="0%"   stopColor="#f4c59a" />
-                        <stop offset="100%" stopColor="#d4956a" />
-                      </radialGradient>
-                      <radialGradient id="glowCenter" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"   stopColor="rgba(232,109,4,0.15)" />
-                        <stop offset="100%" stopColor="transparent" />
-                      </radialGradient>
-                    </defs>
-                    <rect width="200" height="200" fill="url(#bodyGrad)" />
-                    <circle cx="100" cy="100" r="100" fill="url(#glowCenter)" />
-                    <path d="M40 200 Q50 150 100 145 Q150 150 160 200 Z" fill="#e86d04" opacity="0.9" />
-                    <path d="M60 200 Q65 160 100 155 Q135 160 140 200 Z" fill={isDark ? '#0a0a1f' : '#f5ede5'} opacity="0.7" />
-                    <rect x="88" y="125" width="24" height="25" rx="8" fill="url(#skinGrad)" />
-                    <ellipse cx="100" cy="100" rx="42" ry="46" fill="url(#skinGrad)" />
-                    <path d="M58 90 Q62 55 100 52 Q138 55 142 90 Q138 68 100 65 Q62 68 58 90 Z" fill="#2d1b00" />
-                    <ellipse cx="85"  cy="98" rx="5" ry="5.5"  fill="#fff" />
-                    <ellipse cx="115" cy="98" rx="5" ry="5.5"  fill="#fff" />
-                    <ellipse cx="85.5"  cy="99" rx="3" ry="3.5" fill="#1a1a1a" />
-                    <ellipse cx="115.5" cy="99" rx="3" ry="3.5" fill="#1a1a1a" />
-                    <ellipse cx="86"  cy="98" rx="1" ry="1" fill="#fff" />
-                    <ellipse cx="116" cy="98" rx="1" ry="1" fill="#fff" />
-                    <path d="M78  90 Q85  87 92  90" stroke="#2d1b00" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-                    <path d="M108 90 Q115 87 122 90" stroke="#2d1b00" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-                    <path d="M97 105 Q100 112 103 105" stroke="#c4854a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                    <path d="M88 116 Q100 124 112 116" stroke="#c4854a" strokeWidth="2"   fill="none" strokeLinecap="round" />
-                    <circle cx="100" cy="100" r="100" fill="url(#glowCenter)" />
-                  </svg>
-                </div>
+                <img
+                  src={MainPhoto}
+                  alt="Nahid Hasan Ukil"
+                  className="w-full h-full"
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                />
               </div>
 
               {/* Floating badge — top right */}
-              <div className="absolute top-6 -right-4 z-20 px-3 py-2 rounded-xl glass" style={{
+              <div className="absolute top-6 right-0 sm:-right-4 z-20 px-3 py-2 rounded-xl glass" style={{
                 border: '1px solid rgba(232,109,4,0.3)',
                 background: isDark ? 'rgba(5,5,21,0.85)' : 'rgba(255,247,241,0.85)',
                 boxShadow: '0 0 20px rgba(232,109,4,0.2)',
@@ -485,7 +454,7 @@ export default function HeroSection() {
               </div>
 
               {/* Floating badge — bottom left */}
-              <div className="absolute bottom-10 -left-6 z-20 px-3 py-2 rounded-xl glass" style={{
+              <div className="absolute bottom-10 left-0 sm:-left-6 z-20 px-3 py-2 rounded-xl glass" style={{
                 border: '1px solid rgba(232,109,4,0.3)',
                 background: isDark ? 'rgba(5,5,21,0.85)' : 'rgba(255,247,241,0.85)',
                 boxShadow: '0 0 20px rgba(232,109,4,0.2)',
@@ -521,9 +490,9 @@ export default function HeroSection() {
         {/* Left — quick links */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, pointerEvents: 'all' }}>
           {[
-            { label: 'GitHub',   href: 'https://github.com' },
-            { label: 'LinkedIn', href: 'https://linkedin.com' },
-            { label: 'Twitter',  href: 'https://twitter.com' },
+            { label: 'GitHub',   href: 'https://github.com/nahidukil547' },
+            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nahid-hasanukil-a3bb43297' },
+            { label: 'Email',    href: 'mailto:nahidukil547@gmail.com' },
           ].map(({ label, href }) => (
             <a
               key={label}

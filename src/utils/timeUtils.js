@@ -1,5 +1,5 @@
 export function getTimePeriod() {
-  const startDate = new Date(2024, 8, 1); // September 2025 (month is 0-based, so 8 = September)
+  const startDate = new Date(2024, 9, 1); // October 2024 — first dev role at Izaan School
   const today = new Date();
   const diffTime = today - startDate;
   const diffDays = diffTime / (1000 * 60 * 60 * 24);

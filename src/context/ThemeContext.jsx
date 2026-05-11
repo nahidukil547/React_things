@@ -4,7 +4,9 @@ import { gsap } from 'gsap';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem('theme') ?? 'dark'
+  );
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -25,13 +27,14 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    localStorage.setItem('theme', theme);
     const root = document.documentElement;
     if (theme === 'dark') {
       root.style.setProperty('--bg', '#050515');
       root.style.setProperty('--text', '#fff7f1');
       root.style.setProperty('--accent', '#e86d04');
     } else {
-      root.style.setProperty('--bg', '#fff7f1');
+      root.style.setProperty('--bg', 'rgb(234 245 252)');
       root.style.setProperty('--text', '#0b0b0b');
       root.style.setProperty('--accent', '#e86d04');
     }

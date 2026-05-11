@@ -2,52 +2,15 @@ import { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import MainPhoto from '../assets/Image/MainPhoto.png';
 
 gsap.registerPlugin(ScrollTrigger);
+
 const NAV_SECTIONS = [
   { id: 'experience', label: 'Experience', icon: '💼' },
   { id: 'about',      label: 'About',      icon: '👤' },
   { id: 'contact',    label: 'Contact',    icon: '✉️' },
 ];
-
-function MiniAvatar({ isDark }) {
-  return (
-    <svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="cBodyGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor={isDark ? '#1e1e3f' : '#f5ede5'} />
-          <stop offset="100%" stopColor={isDark ? '#0a0a1f' : '#e8ddd5'} />
-        </radialGradient>
-        <radialGradient id="cSkinGrad" cx="45%" cy="40%" r="60%">
-          <stop offset="0%"   stopColor="#f4c59a" />
-          <stop offset="100%" stopColor="#d4956a" />
-        </radialGradient>
-        <radialGradient id="cGlowC" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="rgba(232,109,4,0.18)" />
-          <stop offset="100%" stopColor="transparent" />
-        </radialGradient>
-      </defs>
-      <rect width="200" height="200" fill="url(#cBodyGrad)" />
-      <circle cx="100" cy="100" r="100" fill="url(#cGlowC)" />
-      <path d="M40 200 Q50 150 100 145 Q150 150 160 200 Z" fill="#e86d04" opacity="0.9" />
-      <path d="M60 200 Q65 160 100 155 Q135 160 140 200 Z" fill={isDark ? '#0a0a1f' : '#f5ede5'} opacity="0.7" />
-      <rect x="88" y="125" width="24" height="25" rx="8" fill="url(#cSkinGrad)" />
-      <ellipse cx="100" cy="100" rx="42" ry="46" fill="url(#cSkinGrad)" />
-      <path d="M58 90 Q62 55 100 52 Q138 55 142 90 Q138 68 100 65 Q62 68 58 90 Z" fill="#2d1b00" />
-      <ellipse cx="85"    cy="98" rx="5"  ry="5.5"  fill="#fff" />
-      <ellipse cx="115"   cy="98" rx="5"  ry="5.5"  fill="#fff" />
-      <ellipse cx="85.5"  cy="99" rx="3"  ry="3.5"  fill="#1a1a1a" />
-      <ellipse cx="115.5" cy="99" rx="3"  ry="3.5"  fill="#1a1a1a" />
-      <ellipse cx="86"    cy="98" rx="1"  ry="1"    fill="#fff" />
-      <ellipse cx="116"   cy="98" rx="1"  ry="1"    fill="#fff" />
-      <path d="M78  90 Q85  87 92  90" stroke="#2d1b00" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <path d="M108 90 Q115 87 122 90" stroke="#2d1b00" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <path d="M97 105 Q100 112 103 105" stroke="#c4854a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M88 116 Q100 124 112 116" stroke="#c4854a" strokeWidth="2"   fill="none" strokeLinecap="round" />
-      <circle cx="100" cy="100" r="100" fill="url(#cGlowC)" />
-    </svg>
-  );
-}
 
 export default function StickyProfileCard({ activeSection }) {
   const { theme } = useTheme();
@@ -291,7 +254,11 @@ export default function StickyProfileCard({ activeSection }) {
               border: '2.5px solid rgba(232,109,4,0.6)',
               boxShadow: '0 0 28px rgba(232,109,4,0.5), 0 0 56px rgba(232,109,4,0.2)',
             }}>
-              <MiniAvatar isDark={isDark} />
+              <img
+                src={MainPhoto}
+                alt="Nahid Hasan Ukil"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+              />
             </div>
           </div>
 
@@ -310,7 +277,7 @@ export default function StickyProfileCard({ activeSection }) {
               fontSize: '11px', color: '#e86d04',
               letterSpacing: '0.2em', textTransform: 'uppercase',
             }}>
-              Software Engineer
+              Full-Stack Python Dev
             </div>
           </div>
 

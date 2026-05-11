@@ -2,10 +2,12 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import MainPhoto from './assets/Image/MainPhoto.png';
 import Navbar from './components/Navbar';
 import AnimatedBackground from './components/AnimatedBackground';
 import SectionTracker from './components/SectionTracker';
 import StickyProfileCard from './components/StickyProfileCard';
+import PageLoader from './components/PageLoader';
 import HeroSection from './sections/HeroSection';
 import ExperienceSection from './sections/ExperienceSection';
 import AboutSection from './sections/AboutSection';
@@ -62,17 +64,16 @@ function MobileProfileBar({ activeSection, isDark }) {
           background: isDark
             ? 'linear-gradient(135deg, #0d0d2b, #1a0a00)'
             : 'linear-gradient(135deg, #f0e8e0, #ffe8d0)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '14px',
+          overflow: 'hidden',
         }}>
-          👤
+          <img src={MainPhoto} alt="Nahid" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
         </div>
         <div>
           <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '12px', color: isDark ? '#fff7f1' : '#0b0b0b' }}>
             Nahid Hasan Ukil
           </div>
           <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '9px', color: '#e86d04', letterSpacing: '0.12em' }}>
-            SOFTWARE ENGINEER
+            PYTHON FULL-STACK DEV
           </div>
         </div>
       </div>
@@ -93,6 +94,7 @@ function MobileProfileBar({ activeSection, isDark }) {
 function Portfolio() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const [loaderDone, setLoaderDone] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   const handleScroll = useCallback(() => {
@@ -114,8 +116,19 @@ function Portfolio() {
   }, [handleScroll]);
 
   return (
+    <>
+      {/* Loader sits on top as a fixed overlay; main content renders underneath
+          so all existing entrance/scroll animations play naturally and are ready
+          the moment the loader fades away. */}
+      {!loaderDone && (
+        <PageLoader
+          isDark={isDark}
+          onComplete={() => setLoaderDone(true)}
+        />
+      )}
+
     <div style={{
-      background: isDark ? '#050515' : '#fff7f1',
+      background: isDark ? '#050515' : 'rgb(234 245 252)',
       color: isDark ? '#fff7f1' : '#0b0b0b',
       minHeight: '100vh',
       transition: 'background 0.5s ease, color 0.5s ease',
@@ -131,7 +144,7 @@ function Portfolio() {
 
       <main style={{ position: 'relative', zIndex: 10 }}>
         {/* ── Full-width Hero ──────────────────────────────────────────── */}
-        <HeroSection />
+        <HeroSection loaderDone={loaderDone} />
 
         {/* ── Post-hero 2-column layout — desktop: 33% gap 2% 65% ──────── */}
         <div className="post-hero-grid">
@@ -163,6 +176,7 @@ function Portfolio() {
 
       <SectionTracker activeSection={activeSection} />
     </div>
+    </>
   );
 }
 

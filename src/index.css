@@ -8,6 +8,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip; /* clips GSAP animation overflow without creating a BFC, so position:fixed still works */
 }
 
 body {

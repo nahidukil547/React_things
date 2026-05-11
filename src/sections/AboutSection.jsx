@@ -6,21 +6,21 @@ import { useTheme } from '../context/ThemeContext';
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: 'React / Next.js', level: 95 },
-  { name: 'Node.js / Express', level: 90 },
-  { name: 'TypeScript', level: 88 },
-  { name: 'Python / Django', level: 80 },
-  { name: 'AWS / Cloud', level: 78 },
-  { name: 'PostgreSQL / MongoDB', level: 85 },
+  { name: 'Python / Django', level: 92 },
+  { name: 'Django REST Framework', level: 88 },
+  { name: 'PostgreSQL', level: 85 },
+  { name: 'React.js / Next.js', level: 78 },
+  { name: 'JavaScript (ES6+)', level: 75 },
+  { name: 'AWS S3 / Cloud', level: 65 },
 ];
 
 const interests = [
-  { icon: '⚡', label: 'Performance Engineering' },
-  { icon: '🎨', label: 'UI/UX Design' },
-  { icon: '🤖', label: 'AI / Machine Learning' },
-  { icon: '🏗️', label: 'System Architecture' },
-  { icon: '📱', label: 'Mobile Development' },
-  { icon: '🔐', label: 'Security & Privacy' },
+  { icon: '⚡', label: 'API Performance' },
+  { icon: '🤖', label: 'AI Integration' },
+  { icon: '🏗️', label: 'SaaS Architecture' },
+  { icon: '🗄️', label: 'Database Optimization' },
+  { icon: '☁️', label: 'Cloud & DevOps' },
+  { icon: '🔐', label: 'Auth & Security' },
 ];
 
 export default function AboutSection() {
@@ -145,10 +145,11 @@ export default function AboutSection() {
                   fontFamily: 'Inter, sans-serif',
                 }}
               >
-                I'm a full-stack software engineer with over 5 years of experience
-                building scalable, high-performance web applications. I specialize in
-                crafting elegant code that solves real-world problems — from micro-optimized
-                algorithms to cinematic user interfaces.
+                I'm a Full-Stack Python Developer with 1.5+ years of production
+                experience building AI-powered platforms, SaaS products, and scalable
+                REST APIs. Currently at OPZO Technologies developing ERP modules with
+                Django and DRF; previously at Izaan School of Engineering where I built
+                a complete LMS platform and Talent Hunting Portal from the ground up.
               </p>
               <p
                 className="text-sm leading-relaxed"
@@ -157,9 +158,10 @@ export default function AboutSection() {
                   fontFamily: 'Inter, sans-serif',
                 }}
               >
-                My approach combines engineering rigor with design sensibility. I believe
-                great software isn't just about functionality — it's about creating
-                experiences that feel effortless and look beautiful.
+                I enjoy solving real backend problems — optimizing slow queries,
+                designing clean REST APIs, and integrating AI features into production
+                systems. I thrive in remote-friendly, fast-moving startup environments
+                with clear async communication.
               </p>
             </div>
 
@@ -283,9 +285,9 @@ export default function AboutSection() {
                 Education & Certifications
               </h3>
               {[
-                { title: 'B.S. Computer Science', sub: 'MIT • 2019', icon: '🎓' },
-                { title: 'AWS Certified Solutions Architect', sub: 'Amazon • 2022', icon: '☁️' },
-                { title: 'Google Cloud Professional', sub: 'Google • 2023', icon: '🌐' },
+                { title: 'B.S. Computer Engineering', sub: 'Canadian University of Bangladesh • 2024', icon: '🎓' },
+                { title: 'Diploma, Computer Science Eng.', sub: 'Bangladesh Skill Development Institute • 2019–2023', icon: '📜' },
+                { title: 'AI/ML Integration', sub: 'Google Gemini API in live e-commerce prod', icon: '🤖' },
               ].map((item) => (
                 <div
                   key={item.title}

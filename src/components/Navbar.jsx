@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useTheme } from '../context/ThemeContext';
 import ThemeSwitcher from './ThemeSwitcher';
+import mainLogo from '../assets/Image/mainLogo.png';
 
 const navLinks = ['Home', 'Experience', 'About', 'Contact'];
 
@@ -14,7 +15,10 @@ export default function Navbar({ activeSection }) {
     gsap.fromTo(
       navRef.current,
       { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      {
+        y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2,
+        onComplete: () => gsap.set(navRef.current, { clearProps: 'transform' }),
+      }
     );
   }, []);
 
@@ -41,13 +45,10 @@ export default function Navbar({ activeSection }) {
       {/* Logo */}
       <div className="flex items-center gap-2">
         <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-          style={{
-            background: 'linear-gradient(135deg, #e86d04, #ff9a3c)',
-            boxShadow: '0 0 16px rgba(232,109,4,0.5)',
-          }}
+          className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0"
+          style={{ boxShadow: '0 0 14px rgba(232,109,4,0.45)' }}
         >
-          N
+          <img src={mainLogo} alt="Nahid Logo" className="w-full h-full object-cover" />
         </div>
         <span
           className="font-semibold text-lg tracking-wide"
