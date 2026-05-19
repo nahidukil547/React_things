@@ -91,5 +91,3 @@ In this example, `user` is global state because it can be used by any component 
 - Local state: stored inside a component, used for that component only.
 - Global state: shared across components, often provided by context or a state library.
 - Learning both helps you build React apps that are easier to understand and maintain.
-
-
