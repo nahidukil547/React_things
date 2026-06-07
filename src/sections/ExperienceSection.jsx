@@ -17,13 +17,24 @@ const allExperiences = {
   software: [
     {
       role: 'Full-Stack Developer',
-      company: 'OPZO Technologies',
+      company: '3S SoftTech LTD.',
       period: 'Sep 2025 – Present',
       type: 'Full-time',
       location: 'Dhaka, Bangladesh',
       description:
-        'Designing and developing scalable ERP modules — Sales, Supply Chain, Inventory, and Permission Systems — using Python and Django. Building RESTful APIs for complex business workflows (CS → PR → PO → TR → TP). Optimizing critical PostgreSQL queries through indexing and schema redesign. Collaborating in Agile sprints via Jira.',
-      skills: ['Python', 'Django', 'DRF', 'PostgreSQL', 'REST API', 'Linux'],
+        'Develop and maintain enterprise ERP solutions using Python, Django, and PostgreSQL, covering Inventory, Supply Chain, Sales, Accounts, HR, Expense Management, Field Service, and approval workflows. Design and implement RESTful APIs for Flutter mobile applications and web platforms, enabling seamless integration across business processes. Build and customize dynamic reports and reporting systems to support operational and management decision-making. Contribute to frontend enhancements, UI improvements, and overall application design optimization. Improve system performance through database query optimization and efficient backend architecture. Collaborate with cross-functional teams to deliver scalable, reliable, and user-focused solutions while troubleshooting and resolving complex issues across multiple ERP modules. Actively participate in feature development, system improvements, testing support, and continuous product enhancement initiatives.',
+      skills: ['Python', 'Django', 'DRF','AJAX', 'PostgreSQL', 'REST API', 'Linux', 'JavaScript', 'HTML', 'CSS'],
+      highlight: true,
+    },
+    {
+      role: 'Full-stack Developer Intern (Remote)',
+      company: 'Izaan School of Engineering',
+      period: 'Oct-2024 – Dec-2025 ',
+      type: 'Part-time',
+      location: 'Plano, TX, USA',
+      description:
+        'Contributed to the development of Learning Management System (LMS) and Talent Hunting Portal solutions using Python, Django, React.js, and PostgreSQL. Developed and maintained RESTful APIs for LMS features, including user management, course delivery, role-based access control, notifications, and video-based learning workflows. Implemented and customized responsive frontend interfaces in React.js, translating UI/UX designs into interactive user experiences. Built and enhanced frontend components for the Talent Hunting Portal, including job listings, candidate search, application management, and interview scheduling interfaces. Collaborated with cross-functional teams to deliver scalable, secure, and user-friendly web applications while ensuring seamless integration between frontend and backend systems.',
+      skills: ['Python', 'Django', 'Django REST Framework (DRF)', 'React.js', 'PostgreSQL', 'JWT Authentication', 'AJAX', 'HTML', 'CSS', 'Tailwind CSS'],
       highlight: true,
     },
     
